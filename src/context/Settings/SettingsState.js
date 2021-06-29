@@ -4,6 +4,7 @@ import SettingsReducer from "./SettingsReducer"
 import SettingsContext from "./SettingsContext";
 import axios from 'axios';
 
+
 const SettingsState=(props)=>{
     const initialState={
         settings:false, //Valida si se han recibido settiongs, caso contrario inicia todo random
@@ -47,9 +48,7 @@ const SettingsState=(props)=>{
         dispatch({type:'SELECT_PRAM',payload:value})
     }
 
-    const getTime=()=>{}
 
-    const getPram=()=>{}
 
     const start=async()=>{
         const id= await axios.get('http://localhost:8080/id')
@@ -73,8 +72,6 @@ const SettingsState=(props)=>{
             selectedCoordinates,
             selectedTime,
             selectedPram,
-            getTime,
-            getPram,
             start,
             dispatch
         }}>

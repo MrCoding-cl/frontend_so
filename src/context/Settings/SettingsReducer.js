@@ -59,6 +59,37 @@ export default (state, action) => {
                 }
 
             }
+        case 'SELECT_TIME':
+            if(payload===1){
+                return {
+                    ...state,
+                    time:{
+                        morning:true,
+                        afternoon:false,
+                        night:false,
+                    }
+                }
+            }else if(payload===2){
+                return {
+                    ...state,
+                    time:{
+                        morning:false,
+                        afternoon:true,
+                        night:false,
+                    }
+                }
+
+            }else{
+                return {
+                    ...state,
+                    time:{
+                        morning:false,
+                        afternoon:false,
+                        night:true,
+                    }
+                }
+
+            }
 
 
 
