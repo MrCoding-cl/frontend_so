@@ -4,7 +4,7 @@ import SettingsReducer from "./SettingsReducer"
 import SettingsContext from "./SettingsContext";
 import axios from 'axios';
 import Swal from 'sweetalert2'
-import Line from '../../../src/components/Chartx'
+
 
 const SettingsState=(props)=>{
     const initialState={
@@ -51,9 +51,32 @@ const SettingsState=(props)=>{
     }
 
     const getId=async()=>{
+        const id= await axios.get('http://localhost:8080/id')
+        dispatch({type:'GET_ID',payload:id.data})
+        // try{
+        //     const id= await axios.get('http://localhost:8080/id')
+        //     dispatch({type:'GET_ID',payload:id.data})
+        // }catch (error){
+        //     Swal.fire({
+        //         title: 'Ocurrio un error',
+        //         text: 'No hay conexion a internet',
+        //         icon: 'error',
+        //         confirmButtonText: 'Ta bien'
+        //     })
+        // }
+    }
+
+
+
+    const start=async()=>{
+
         try{
-            const id= await axios.get('http://localhost:8080/id')
-            dispatch({type:'GET_ID',payload:id.data})
+            const result= await axios.get(`http://localhost:8080/result/${state.id}`)
+            //console.log(result)
+            console.log(state)
+            dispatch({type:'START_CHART',payload: {
+                    x:result.data.x,y:result.data.y
+                }})
         }catch (error){
             Swal.fire({
                 title: 'Ocurrio un error',
@@ -62,17 +85,6 @@ const SettingsState=(props)=>{
                 confirmButtonText: 'Ta bien'
             })
         }
-    }
-
-
-
-    const start=async()=>{
-        const result= await axios.get(`http://localhost:8080/result/${state.id}`)
-        //console.log(result)
-        console.log(state)
-        dispatch({type:'START_CHART',payload: {
-            x:result.data.x,y:result.data.y
-            }})
     }
 
 

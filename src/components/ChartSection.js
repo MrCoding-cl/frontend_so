@@ -1,4 +1,5 @@
 import React, {useContext} from "react";
+
 import Section from "./Section";
 import SectionHeader from "./SectionHeader";
 import MediumSection from "./MediumSection";
@@ -6,11 +7,16 @@ import Consola from "./Consola";
 import Footer from "./Footer";
 import "./ChartSection.scss";
 import Chartx from "./Chartx";
+import SaveList from "./SaveList";
 import SettingsContext from "../context/Settings/SettingsContext";
+
 
 function ChartSection(props) {
     const {start} = useContext(SettingsContext);
-  return (
+
+
+
+    return (
     <>
       <Section
         color={props.color}
@@ -34,7 +40,14 @@ function ChartSection(props) {
             <button className="button is-primary is-rounded" onClick={start}>Start</button>
           </div>
           <MediumSection />
+            <br/>
+            <br/>
           <Consola />
+            <br/>
+            <br/>
+            <div className="container has-text-centered">
+                <SaveList/>
+            </div>
         </div>
       </Section>
       <Footer
