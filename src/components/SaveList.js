@@ -46,7 +46,7 @@ const SaveList = () => {
     return (
         <>
             <div className="buttons">
-                <a className="button" download='list.txt' href={downloadLink} onClick={makeTextFile}>Download Log</a>
+                <a className="button" download='log.txt' href={downloadLink} onClick={makeTextFile}>Download Log</a>
             </div>
         </>
     )
