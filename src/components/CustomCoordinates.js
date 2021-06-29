@@ -3,7 +3,6 @@ import SettingsContext from "../context/Settings/SettingsContext";
 
 function CustomCoordinates(props) {
 
-
     const {coordinates,selectedCoordinates} = useContext(SettingsContext);
 
     return (
@@ -13,7 +12,9 @@ function CustomCoordinates(props) {
         <button className={`button ${(coordinates.request===true?"is-info is-selected":"")}`} onClick={()=>selectedCoordinates(1)} >Request</button>
         <button className={`button ${(coordinates.uber===true?"is-info is-selected":"")}`} onClick={()=>selectedCoordinates(2)} >Ubers</button>
       </div>
-      <textarea className="textarea" placeholder="{x:1,y:2}" />
+        <>
+            {(coordinates.request===true?<textarea className="textarea" placeholder="{x:1,y:2}" value={12}/>:coordinates.uber===true?<textarea className="textarea" placeholder="Requests" value={33} />:<> </>)}
+        </>
       <div className="container has-text-centered">
         {/*<button className="button is-primary">Send</button>*/}
       </div>

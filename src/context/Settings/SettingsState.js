@@ -1,9 +1,10 @@
 // eslint-disable-next-line no-unused-vars
-import React,{useReducer} from "react";
+import React,{useReducer,useCallback} from "react";
 import SettingsReducer from "./SettingsReducer"
 import SettingsContext from "./SettingsContext";
 import axios from 'axios';
 import Swal from 'sweetalert2'
+import Line from '../../../src/components/Chartx'
 
 const SettingsState=(props)=>{
     const initialState={
@@ -66,9 +67,6 @@ const SettingsState=(props)=>{
 
 
     const start=async()=>{
-        //const id= await axios.get('http://localhost:8080/id')
-        //console.log(id)
-        //const result= await axios.get(`http://localhost:8080/result/${id.data}`)
         const result= await axios.get(`http://localhost:8080/result/${state.id}`)
         //console.log(result)
         console.log(state)

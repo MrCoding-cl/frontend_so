@@ -6,6 +6,7 @@ import SettingsContext from "../context/Settings/SettingsContext";
 
 
 const options = {
+    animation: false,
     scales: {
         yAxes: [
             {
@@ -32,7 +33,7 @@ const Chartx = (props) => {
                     </a>
                 </div>
             </div>
-            <Line data={chartData} options={options} />
+            <Line data={chartData} options={options}/>
             
         </>
     )
