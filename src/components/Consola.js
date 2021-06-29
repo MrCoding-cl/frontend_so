@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import Terminal from 'react-console-emulator'
+import SettingsContext from "../context/Settings/SettingsContext";
 
 
 const commands = {
@@ -15,7 +16,11 @@ const commands = {
 
 
 
+
 const Consola = () => {
+  const {terminallog} = useContext(SettingsContext);
+
+
   const config={
     globalStyles: {
       maxHeight: '300px'
@@ -31,6 +36,9 @@ const Consola = () => {
   }
 
 
+
+
+
   return (
       <>
         <Terminal
@@ -38,6 +46,7 @@ const Consola = () => {
             commands={commands}
             debounce={250}
             promptLabelStyle={{ color: '#FFFFFF' }}
+            // welcomeMessage={terminallog}
             welcomeMessage={[""]}
             promptLabel={'profeMHB@finis:~$'}
             inputTextStyle={{ color: 'white' }}

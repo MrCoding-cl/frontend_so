@@ -8,6 +8,9 @@ import Swal from 'sweetalert2'
 
 const SettingsState=(props)=>{
     const initialState={
+        uberData:null,
+        requestData:null,
+        terminallog:[],
         id:null,
         settings:false, //Valida si se han recibido settiongs, caso contrario inicia todo random
         coordinates:{
@@ -50,6 +53,18 @@ const SettingsState=(props)=>{
         dispatch({type:'SELECT_PRAM',payload:value})
     }
 
+    const runTerminal=async()=>{
+        const fetch= await axios.get(`http://localhost:8080/log/${state.id}`);
+        const array=[]
+        const log=fetch.data["log"]
+        const list=log.split('\n')
+        for(var i=0; i<list.length; i++){
+            array.push(`${list[i]}`)
+        }
+        dispatch({type:'RUN_TERMINAL',payload:array})
+
+    }
+
     const getId=async()=>{
         const id= await axios.get('http://localhost:8080/id')
         dispatch({type:'GET_ID',payload:id.data})
@@ -66,17 +81,35 @@ const SettingsState=(props)=>{
         // }
     }
 
+    const syncSettings=async()=>{
+        dispatch({type:'SETTINGS_SYNC',payload:true})
+        if(state.uberData===null && state.requestData===null){
+            //Si no hay ubers recibidos solo se envia los parametros
+            const res = axios.post(`http://localhost:8080/config/${state.id}`, {
+                "run_type": (state.time.morning===true?0:state.time.afternoon===true?1:state.time.night===true:2),
+                "pram":state.pram.pram,
+            });
+            console.log(res)
+        }
+
+    }
+
 
 
     const start=async()=>{
 
         try{
+            if(state.pram.pram!=null){
+                await syncSettings()
+
+            }
             const result= await axios.get(`http://localhost:8080/result/${state.id}`)
             //console.log(result)
-            console.log(state)
+            console.log(`ìd actual: ${state.id}`)
             dispatch({type:'START_CHART',payload: {
                     x:result.data.x,y:result.data.y
                 }})
+            // await runTerminal()
         }catch (error){
             Swal.fire({
                 title: 'Ocurrio un error',
@@ -92,9 +125,12 @@ const SettingsState=(props)=>{
     return(
         <SettingsContext.Provider value={{
             coordinates: state.coordinates,
+            uberData: state.uberData,
+            requestData:state.requestData,
             time:state.time,
             pram:state.pram,
             chartData:state.chartData,
+            terminallog:state.terminallog,
             id:state.id,
             getId,
             selectedCoordinates,

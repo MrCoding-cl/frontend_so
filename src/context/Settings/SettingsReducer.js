@@ -96,6 +96,18 @@ export default (state, action) => {
                 id:payload
             }
 
+        case 'SETTINGS_SYNC':
+            return{
+                ...state,
+                settings:payload
+            }
+        case 'RUN_TERMINAL':
+            return{
+                ...state,
+                terminallog:payload
+            }
+
+
 
 
 
