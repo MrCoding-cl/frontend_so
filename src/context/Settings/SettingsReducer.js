@@ -90,6 +90,11 @@ export default (state, action) => {
                 }
 
             }
+        case 'GET_ID':
+            return{
+                ...state,
+                id:payload
+            }
 
 
 

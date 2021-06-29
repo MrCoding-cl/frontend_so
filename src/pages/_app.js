@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext,useEffect} from "react";
 import "./../styles/global.scss";
 import Navbar from "./../components/Navbar";
 import IndexPage from "./index";
@@ -12,6 +12,10 @@ import "./../util/analytics.js";
 import SettingsState from "../context/Settings/SettingsState";
 
 function App(props) {
+
+
+
+
   return (
     <SettingsState>
       <Router>

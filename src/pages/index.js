@@ -2,7 +2,10 @@ import React from "react";
 import StartSection from "./../components/StartSection";
 import InfoSection from "./../components/InfoSection";
 
+
 function IndexPage(props) {
+    // eslint-disable-next-line no-undef
+
   return (
     <>
       <StartSection

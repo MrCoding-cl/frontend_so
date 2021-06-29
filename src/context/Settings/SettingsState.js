@@ -3,10 +3,11 @@ import React,{useReducer} from "react";
 import SettingsReducer from "./SettingsReducer"
 import SettingsContext from "./SettingsContext";
 import axios from 'axios';
-
+import Swal from 'sweetalert2'
 
 const SettingsState=(props)=>{
     const initialState={
+        id:null,
         settings:false, //Valida si se han recibido settiongs, caso contrario inicia todo random
         coordinates:{
             uber:null,
@@ -48,12 +49,27 @@ const SettingsState=(props)=>{
         dispatch({type:'SELECT_PRAM',payload:value})
     }
 
+    const getId=async()=>{
+        try{
+            const id= await axios.get('http://localhost:8080/id')
+            dispatch({type:'GET_ID',payload:id.data})
+        }catch (error){
+            Swal.fire({
+                title: 'Ocurrio un error',
+                text: error,
+                icon: 'error',
+                confirmButtonText: 'Ta bien'
+            })
+        }
+    }
+
 
 
     const start=async()=>{
-        const id= await axios.get('http://localhost:8080/id')
+        //const id= await axios.get('http://localhost:8080/id')
         //console.log(id)
-        const result= await axios.get(`http://localhost:8080/result/${id.data}`)
+        //const result= await axios.get(`http://localhost:8080/result/${id.data}`)
+        const result= await axios.get(`http://localhost:8080/result/${state.id}`)
         //console.log(result)
         console.log(state)
         dispatch({type:'START_CHART',payload: {
@@ -69,6 +85,8 @@ const SettingsState=(props)=>{
             time:state.time,
             pram:state.pram,
             chartData:state.chartData,
+            id:state.id,
+            getId,
             selectedCoordinates,
             selectedTime,
             selectedPram,
