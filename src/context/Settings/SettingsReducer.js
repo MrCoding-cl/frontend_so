@@ -4,15 +4,16 @@ export default (state, action) => {
 
     // eslint-disable-next-line default-case
     switch (type){
+
         case 'START_CHART':
             return {
                 ...state,
                 chartData:{
-                    labels: [0],
+                    labels: payload.x,
                     datasets: [
                         {
                             label: 'Ubers',
-                            data: payload,
+                            data: payload.y,
                             fill: false,
                             backgroundColor: 'rgb(255, 99, 132)',
                             borderColor: 'rgba(255, 99, 132, 0.2)',
@@ -21,6 +22,48 @@ export default (state, action) => {
                 }
 
             }
+            case 'SELECT_COORDINATES':
+                if(payload===1){
+                    return {
+                        ...state,
+                        coordinates:{
+                            uber:false,
+                            request:true,
+                        }
+                    }
+                }else{
+                    return {
+                        ...state,
+                        coordinates:{
+                            uber:true,
+                            request:false,
+                        }
+                    }
+
+                }
+
+        case 'SELECT_PRAM':
+            if(payload===1){
+                return {
+                    ...state,
+                    pram:{
+                        pram:true
+                    }
+                }
+            }else{
+                return {
+                    ...state,
+                    pram:{
+                        pram:false
+                    }
+                }
+
+            }
+
+
+
+
+
     }
 };
 

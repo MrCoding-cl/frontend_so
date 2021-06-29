@@ -6,15 +6,15 @@ import axios from 'axios';
 
 const SettingsState=(props)=>{
     const initialState={
+        settings:false, //Valida si se han recibido settiongs, caso contrario inicia todo random
         coordinates:{
-            uber:false,
-            request:false,
-            textCoordinates:"",
-            ubers:"",
+            uber:null,
+            request:null,
         },
         time:{
-            morning:false,
-            afternoon:false
+            morning:null,
+            afternoon:null,
+            night:null,
         },
         pram:{
             pram:null
@@ -35,12 +35,16 @@ const SettingsState=(props)=>{
 
     const [state, dispatch] = useReducer(SettingsReducer, initialState);
 
-    const setCoordinatesButton=()=>{
-
+    const selectedTime=(value)=>{
+        dispatch({type:'SELECT_TIME',payload:value})
     }
 
     const selectedCoordinates=(value)=>{
+        dispatch({type:'SELECT_COORDINATES',payload:value})
+    }
 
+    const selectedPram=(value)=>{
+        dispatch({type:'SELECT_PRAM',payload:value})
     }
 
     const getTime=()=>{}
@@ -53,7 +57,9 @@ const SettingsState=(props)=>{
         const result= await axios.get(`http://localhost:8080/result/${id.data}`)
         //console.log(result)
         console.log(state)
-        dispatch({type:'START_CHART',payload:result.data.x})
+        dispatch({type:'START_CHART',payload: {
+            x:result.data.x,y:result.data.y
+            }})
     }
 
 
@@ -65,6 +71,8 @@ const SettingsState=(props)=>{
             pram:state.pram,
             chartData:state.chartData,
             selectedCoordinates,
+            selectedTime,
+            selectedPram,
             getTime,
             getPram,
             start,
