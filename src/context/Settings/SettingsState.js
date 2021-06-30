@@ -153,7 +153,7 @@ const SettingsState=(props)=>{
             });
         }else if(state.UberPost===null && state.RequestPost===null){
             const res = axios.post(`http://localhost:8080/config/${state.id}`, {
-                "run_type": (state.time.morning===true?0:state.time.afternoon===true?1:state.time.night===true:2),
+                "run_type":4,
                 "pram":state.pram.pram,
                 "ubers":state.UberPost,
                 "request":state.RequestPost

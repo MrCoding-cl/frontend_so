@@ -10,8 +10,8 @@ function CustomCoordinates(props) {
     <div className="column">
       <p className="card-header-title">Custom coordinates</p>
       <div className="buttons has-addons">
-        <button className={`button ${(coordinates.request===true?"is-info is-selected":"")}`} onClick={()=>selectedCoordinates(1)} >Request</button>
-        <button className={`button ${(coordinates.uber===true?"is-info is-selected":"")}`} onClick={()=>selectedCoordinates(2)} >Ubers</button>
+        <button className={`button ${(coordinates.request===true?"is-info is-selected":"")}`} onClick={()=>selectedCoordinates(1)} >Ubers</button>
+        <button className={`button ${(coordinates.uber===true?"is-info is-selected":"")}`} onClick={()=>selectedCoordinates(2)} >Request</button>
       </div>
         <>
             {(coordinates.request===true?<textarea className="textarea" placeholder={`119 459
