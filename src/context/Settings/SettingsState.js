@@ -8,8 +8,10 @@ import Swal from 'sweetalert2'
 
 const SettingsState=(props)=>{
     const initialState={
-        uberData:null,
-        requestData:null,
+        uberData:'',
+        requestData:'',
+        UberPost:null, //validacion
+        RequestPost:null,//validacion
         terminallog:[],
         id:null,
         settings:false, //Valida si se han recibido settiongs, caso contrario inicia todo random
@@ -38,6 +40,62 @@ const SettingsState=(props)=>{
             ],
         }
     }
+
+    const handleUberdata =(e)=>{
+
+        const parseoDia=(texto)=>{
+            let arr = texto.split("\n").map(r => r.split(" "));
+
+            function objectify(array) {
+                return array.reduce(function(p, c) {
+                    p[c[0]] = c[1];
+                    return p;
+                }, {});
+            }
+
+            const objeto= objectify(arr)
+
+            var result = Object.keys(objeto).map(e => ({x: e, y: objeto[e]}))
+
+            return result
+        }
+        console.log(parseoDia(e))
+        dispatch({type:'INPUT_TIME',payload:{parseado:parseoDia(e),noparseado:e}})
+
+
+    }
+
+    const handleRequestData =(e)=>{
+        const ParseoRequest=(texto)=>{
+            let arr = texto.split("\n").map(r => r.split(" "));
+            var object=[]
+            arr.map((actual,index,array)=>{
+                object.push({
+                    "xi": actual[0],
+                    "yi": actual[1],
+                    "xf": actual[3],
+                    "yf": actual[4],
+                    "t": actual[6]
+
+                })
+            })
+
+
+            return object
+
+        }
+        console.log(ParseoRequest(e))
+
+        dispatch({type:'INPUT_REQUEST',payload:{parseado:ParseoRequest(e),noparseado:e}})
+
+
+    }
+
+
+
+
+
+
 
     const [state, dispatch] = useReducer(SettingsReducer, initialState);
 
@@ -87,13 +145,21 @@ const SettingsState=(props)=>{
 
     const syncSettings=async()=>{
         dispatch({type:'SETTINGS_SYNC',payload:true})
-        if(state.uberData===null && state.requestData===null){
+        if(state.UberPost===null && state.RequestPost===null){
             //Si no hay ubers recibidos solo se envia los parametros
             const res = axios.post(`http://localhost:8080/config/${state.id}`, {
                 "run_type": (state.time.morning===true?0:state.time.afternoon===true?1:state.time.night===true:2),
                 "pram":state.pram.pram,
             });
-            console.log(res)
+        }else if(state.UberPost===null && state.RequestPost===null){
+            const res = axios.post(`http://localhost:8080/config/${state.id}`, {
+                "run_type": (state.time.morning===true?0:state.time.afternoon===true?1:state.time.night===true:2),
+                "pram":state.pram.pram,
+                "ubers":state.UberPost,
+                "request":state.RequestPost
+            });
+        }else{
+
         }
 
     }
@@ -103,10 +169,13 @@ const SettingsState=(props)=>{
     const start=async()=>{
 
         try{
-            if(state.pram.pram!=null){
-                await syncSettings()
 
-            }
+            await syncSettings()
+
+            // if(state.pram.pram!=null){
+            //     await syncSettings()
+            //
+            // }
             const result= await axios.get(`http://localhost:8080/result/${state.id}`)
             //console.log(result)
             console.log(`ìd actual: ${state.id}`)
@@ -136,11 +205,15 @@ const SettingsState=(props)=>{
             chartData:state.chartData,
             terminallog:state.terminallog,
             id:state.id,
+            UberPost:state.UberPost,
+            RequestPost:state.RequestPost,
+            handleRequestData,
             getId,
             selectedCoordinates,
             selectedTime,
             selectedPram,
             start,
+            handleUberdata,
             dispatch
         }}>
             {props.children}

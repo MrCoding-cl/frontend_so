@@ -110,7 +110,14 @@ export default (state, action) => {
         case 'INPUT_TIME':
             return{
                 ...state,
-                payload
+                uberData:payload.noparseado,
+                uberPost:payload.parseado
+            }
+        case 'INPUT_REQUEST':
+            return{
+                ...state,
+                requestData:payload.noparseado,
+                RequestPost:payload.parseado
             }
 
 
