@@ -18,7 +18,7 @@ function IndexPage(props) {
         buttonText="Start"
         buttonColor="primary"
         buttonInverted={false}
-        buttonPath="/uber"
+        buttonPath="/frontend_so/uber"
       />
       <InfoSection
         color="white"
