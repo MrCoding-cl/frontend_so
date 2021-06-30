@@ -107,6 +107,12 @@ export default (state, action) => {
                 terminallog:payload
             }
 
+        case 'INPUT_TIME':
+            return{
+                ...state,
+                payload
+            }
+
 
 
 

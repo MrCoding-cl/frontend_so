@@ -21,7 +21,8 @@
     "react-hook-form": "6.15.1",
     "react-router-dom": "5.2.0",
     "react-scripts": "4.0.2",
-    "sweetalert2": "^11.0.18"
+    "sweetalert2": "^11.0.18",
+    "terminal-in-react": "^4.3.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -45,7 +46,5 @@
     ]
   },
   "proxy": "http://localhost:8080",
-  "devDependencies": {
-    "react-console-emulator": "^5.0.1"
-  }
+  "devDependencies": {}
 }

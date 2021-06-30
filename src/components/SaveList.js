@@ -15,7 +15,6 @@ const SaveList = () => {
         try{
             const fetch= await axios.get(`http://localhost:8080/log/${id}`);
             const log=fetch.data["log"]
-            console.log(log)
             const list=log.split('\n')
             const data = new Blob([list.join('\n')], { type: 'text/plain' })
             if (downloadLink !== '') window.URL.revokeObjectURL(downloadLink)

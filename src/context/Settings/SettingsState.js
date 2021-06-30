@@ -58,10 +58,14 @@ const SettingsState=(props)=>{
         const array=[]
         const log=fetch.data["log"]
         const list=log.split('\n')
-        for(var i=0; i<list.length; i++){
-            array.push(`${list[i]}`)
-        }
-        dispatch({type:'RUN_TERMINAL',payload:array})
+        // setInterval(function() {
+        //     for(var i=0; i<list.length; i++){
+        //         console.log(list[i])
+        //     }
+        // }, 5000);
+
+        console.log(list)
+        //dispatch({type:'RUN_TERMINAL',payload:array})
 
     }
 
@@ -109,7 +113,7 @@ const SettingsState=(props)=>{
             dispatch({type:'START_CHART',payload: {
                     x:result.data.x,y:result.data.y
                 }})
-            // await runTerminal()
+            await runTerminal()
         }catch (error){
             Swal.fire({
                 title: 'Ocurrio un error',
