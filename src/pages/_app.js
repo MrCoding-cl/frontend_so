@@ -27,9 +27,9 @@ function App(props) {
           />
 
           <Switch>
-            <Route exact path="/" component={IndexPage} />
+            <Route exact path="/frontend_so" component={IndexPage} />
 
-            <Route exact path="/uber" component={UberPage} />
+            <Route exact path="/frontend_so/uber" component={UberPage} />
 
             <Route component={NotFoundPage} />
           </Switch>
