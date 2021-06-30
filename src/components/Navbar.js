@@ -17,7 +17,7 @@ function Navbar(props) {
       <div className="container">
         <div className="navbar-brand">
           <div className="navbar-item">
-            <Link to="/">
+            <Link to="/frontend_so">
               <img className="image" src={props.logo} alt="Logo" />
             </Link>
           </div>

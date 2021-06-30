@@ -112,7 +112,7 @@ const SettingsState=(props)=>{
     }
 
     const runTerminal=async()=>{
-        const fetch= await axios.get(`http://localhost:8080/log/${state.id}`);
+        const fetch= await axios.get(`http://209.145.62.131:8080/log/${state.id}`);
 
         const log=fetch.data["log"]
 
@@ -131,7 +131,7 @@ const SettingsState=(props)=>{
     }
 
     const getId=async()=>{
-        const id= await axios.get('http://localhost:8080/id')
+        const id= await axios.get('http://209.145.62.131:8080/id')
         dispatch({type:'GET_ID',payload:id.data})
         // try{
         //     const id= await axios.get('http://localhost:8080/id')
@@ -150,13 +150,13 @@ const SettingsState=(props)=>{
         dispatch({type:'SETTINGS_SYNC',payload:true})
         if(state.UberPost===null && state.RequestPost===null){
             //Si no hay ubers recibidos solo se envia los parametros
-            const res = axios.post(`http://localhost:8080/config/${state.id}`, {
+            const res = axios.post(`http://209.145.62.131:8080/config/${state.id}`, {
                 "run_type": (state.time.morning===true?0:state.time.afternoon===true?1:state.time.night===true:2),
                 "pram":state.pram.pram,
             });
         }
         if(state.UberPost!==null){
-            const res = axios.post(`http://localhost:8080/config/${state.id}`, {
+            const res = axios.post(`http://209.145.62.131:8080/config/${state.id}`, {
                 "run_type":4,
                 "pram":state.pram.pram,
                 "ubers":state.UberPost,
@@ -180,7 +180,7 @@ const SettingsState=(props)=>{
             //     await syncSettings()
             //
             // }
-            const result= await axios.get(`http://localhost:8080/result/${state.id}`)
+            const result= await axios.get(`http://209.145.62.131:8080/result/${state.id}`)
             //console.log(result)
             console.log(`ìd actual: ${state.id}`)
             dispatch({type:'START_CHART',payload: {

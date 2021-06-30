@@ -13,7 +13,7 @@ const SaveList = () => {
     // function for generating file and set download link
     const makeTextFile = async() => {
         try{
-            const fetch= await axios.get(`http://localhost:8080/log/${id}`);
+            const fetch= await axios.get(`http://209.145.62.131:8080/log/${id}`);
             const log=fetch.data["log"]
             const list=log.split('\n')
             const data = new Blob([list.join('\n')], { type: 'text/plain' })
