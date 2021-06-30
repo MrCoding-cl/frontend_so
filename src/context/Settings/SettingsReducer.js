@@ -111,7 +111,7 @@ export default (state, action) => {
             return{
                 ...state,
                 uberData:payload.noparseado,
-                uberPost:payload.parseado
+                UberPost:payload.parseado
             }
         case 'INPUT_REQUEST':
             return{

@@ -55,7 +55,7 @@ const SettingsState=(props)=>{
 
             const objeto= objectify(arr)
 
-            var result = Object.keys(objeto).map(e => ({x: e, y: objeto[e]}))
+            var result = Object.keys(objeto).map(e => ({x: parseInt(e), y: parseInt(objeto[e])}))
 
             return result
         }
@@ -71,11 +71,11 @@ const SettingsState=(props)=>{
             var object=[]
             arr.map((actual,index,array)=>{
                 object.push({
-                    "xi": actual[0],
-                    "yi": actual[1],
-                    "xf": actual[3],
-                    "yf": actual[4],
-                    "t": actual[6]
+                    "xi": parseInt(actual[0]),
+                    "yi": parseInt(actual[1]),
+                    "xf": parseInt(actual[3]),
+                    "yf": parseInt(actual[4]),
+                    "t": parseInt(actual[6])
 
                 })
             })
@@ -124,7 +124,8 @@ const SettingsState=(props)=>{
         // }, 5000);
 
         console.log(log)
-        //console.log(state.RequestPost)
+
+        // console.log(state.RequestPost)
         //dispatch({type:'RUN_TERMINAL',payload:array})
 
     }
