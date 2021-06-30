@@ -59,7 +59,7 @@ const SettingsState=(props)=>{
 
             return result
         }
-        console.log(parseoDia(e))
+        //console.log(parseoDia(e))
         dispatch({type:'INPUT_TIME',payload:{parseado:parseoDia(e),noparseado:e}})
 
 
@@ -84,7 +84,7 @@ const SettingsState=(props)=>{
             return object
 
         }
-        console.log(ParseoRequest(e))
+        //console.log(ParseoRequest(e))
 
         dispatch({type:'INPUT_REQUEST',payload:{parseado:ParseoRequest(e),noparseado:e}})
 
@@ -113,16 +113,18 @@ const SettingsState=(props)=>{
 
     const runTerminal=async()=>{
         const fetch= await axios.get(`http://localhost:8080/log/${state.id}`);
-        const array=[]
+
         const log=fetch.data["log"]
-        const list=log.split('\n')
+
+        //const list=log.split('\n')
         // setInterval(function() {
         //     for(var i=0; i<list.length; i++){
         //         console.log(list[i])
         //     }
         // }, 5000);
 
-        console.log(list)
+        console.log(log)
+        //console.log(state.RequestPost)
         //dispatch({type:'RUN_TERMINAL',payload:array})
 
     }
@@ -151,7 +153,8 @@ const SettingsState=(props)=>{
                 "run_type": (state.time.morning===true?0:state.time.afternoon===true?1:state.time.night===true:2),
                 "pram":state.pram.pram,
             });
-        }else if(state.UberPost===null && state.RequestPost===null){
+        }
+        if(state.UberPost!==null){
             const res = axios.post(`http://localhost:8080/config/${state.id}`, {
                 "run_type":4,
                 "pram":state.pram.pram,
