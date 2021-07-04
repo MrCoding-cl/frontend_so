@@ -151,11 +151,12 @@ const SettingsState=(props)=>{
         if(state.UberPost===null && state.RequestPost===null){
             //Si no hay ubers recibidos solo se envia los parametros
             const res = axios.post(`http://209.145.62.131:8080/config/${state.id}`, {
-                "run_type": (state.time.morning===true?0:state.time.afternoon===true?1:state.time.night===true:2),
+                "run_type": (state.time.morning===true?0:state.time.afternoon===true?1:state.time.night===true?2:3),
+                // "run_type": (state.time.morning===true?0:state.time.afternoon===true?1:state.time.night===true:2),
                 "pram":state.pram.pram,
             });
         }
-        if(state.UberPost!==null){
+        else if(state.UberPost!==null || state.UberPost!==''){
             const res = axios.post(`http://209.145.62.131:8080/config/${state.id}`, {
                 "run_type":4,
                 "pram":state.pram.pram,
@@ -174,7 +175,7 @@ const SettingsState=(props)=>{
 
         try{
 
-            await syncSettings()
+            syncSettings()
 
             // if(state.pram.pram!=null){
             //     await syncSettings()
@@ -218,7 +219,8 @@ const SettingsState=(props)=>{
             selectedPram,
             start,
             handleUberdata,
-            dispatch
+            dispatch,
+            syncSettings
         }}>
             {props.children}
         </SettingsContext.Provider>

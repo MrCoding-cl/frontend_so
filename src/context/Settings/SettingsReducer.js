@@ -79,7 +79,7 @@ export default (state, action) => {
                     }
                 }
 
-            }else{
+            }else if(payload===3){
                 return {
                     ...state,
                     time:{
